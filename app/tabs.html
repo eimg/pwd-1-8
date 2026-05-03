@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabs</title>
+    <style>
+        .tabs {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+            margin: 0;
+            padding: 10px 10px 0 10px;
+            background: darkslateblue;
+        }
+        .tabs li {
+            border-radius: 5px 5px 0 0;
+            background: white;
+            padding: 8px 30px;
+            cursor: pointer;
+        }
+        #tab2 {
+            opacity: 0.5;
+        }
+        .box {
+            padding: 20px;
+            min-height: 250px;
+            border: 4px solid darkslateblue;
+            border-top: 0 none;
+        }
+        #box2 {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <ul class="tabs">
+        <li id="tab1" onclick="one()">Tab One</li>
+        <li id="tab2" onclick="two()">Tab Two</li>
+    </ul>
+    <div class="box" id="box1">Box One</div>
+    <div class="box" id="box2">Box Two</div>
+
+    <script>
+        function one() {
+            document.querySelector("#tab1").style.opacity = 1;
+            document.querySelector("#tab2").style.opacity = 0.5;
+            document.querySelector("#box1").style.display = "block";
+            document.querySelector("#box2").style.display = "none";
+        }
+        
+        function two() {
+            document.querySelector("#tab1").style.opacity = 0.5;
+            document.querySelector("#tab2").style.opacity = 1;
+            document.querySelector("#box1").style.display = "none";
+            document.querySelector("#box2").style.display = "block";
+        }
+    </script>
+</body>
+</html>

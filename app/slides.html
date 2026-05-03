@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slides</title>
+    <style>
+        .container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .container button {
+            position: absolute;
+            top: 40%;
+            font-size: 2.5em;
+            background: transparent;
+            border: 0 none;
+            color: white;
+            opacity: 0.6;
+        }
+        #prev {
+            left: 20px;
+        }
+        #next {
+            right: 20px;
+        }
+        .box {
+            text-align: center;
+            height: 300px;
+            line-height: 300px;
+            color: white;
+            font-size: 3em;
+            background: gray;
+        }
+        #box1 {
+            background: darkgoldenrod;
+        }
+        #box2 {
+            background: darkgreen;
+            display: none;
+        }
+        #box3 {
+            background: darkslateblue;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button id="prev" onclick="prev()">&laquo;</button>
+        <button id="next" onclick="next()">&raquo;</button>
+        <div class="box" id="box1">1</div>
+        <div class="box" id="box2">2</div>
+        <div class="box" id="box3">3</div>
+    </div>
+
+    <script>
+        var box = 1;
+
+        function prev() {
+            document.querySelector("#box" + box).style.display = "none";
+            box--;
+            if (box < 1) box = 3;
+            document.querySelector("#box" + box).style.display = "block";
+        }
+
+        function next() {
+            document.querySelector("#box" + box).style.display = "none";
+            box++;
+            if(box > 3) box = 1;
+            document.querySelector("#box" + box).style.display = "block";
+        }
+    </script>
+</body>
+</html>
