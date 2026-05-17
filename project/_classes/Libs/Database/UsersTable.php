@@ -14,6 +14,17 @@ class UsersTable
         $this->db = $mysql->connect();
     }
 
+    public function all()
+    {
+        $statement = $this->db->query(
+            "SELECT users.*, roles.name AS role
+            FROM users LEFT JOIN roles
+            ON users.role_id = roles.id"
+        );
+
+        return $statement->fetchAll();
+    }
+
     public function find(String $email, String $password)
     {
         try {
@@ -51,6 +62,38 @@ class UsersTable
     {
         $statement = $this->db->prepare("UPDATE users SET photo=:photo WHERE id=:id");
         $statement->execute(["id" => $id, "photo" => $photo]);
+
+        return $statement->rowCount();
+    }
+
+    public function changeRole(String $id, String $role_id)
+    {
+        $statement = $this->db->prepare("UPDATE users SET role_id=:role_id WHERE id=:id");
+        $statement->execute(["id" => $id, "role_id" => $role_id]);
+
+        return $statement->rowCount();
+    }
+
+    public function suspend(String $id)
+    {
+        $statement = $this->db->prepare("UPDATE users SET suspended=1 WHERE id=:id");
+        $statement->execute(["id" => $id]);
+
+        return $statement->rowCount();
+    }
+
+    public function unsuspend(String $id)
+    {
+        $statement = $this->db->prepare("UPDATE users SET suspended=0 WHERE id=:id");
+        $statement->execute(["id" => $id]);
+
+        return $statement->rowCount();
+    }
+
+    public function delete(String $id)
+    {
+        $statement = $this->db->prepare("DELETE FROM users WHERE id=:id");
+        $statement->execute(['id' => $id]);
 
         return $statement->rowCount();
     }

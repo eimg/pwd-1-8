@@ -18,6 +18,12 @@
             </div>
         <?php endif ?>
 
+        <?php if (isset($_GET['suspended'])): ?>
+            <div class="alert alert-danger">
+                Account suspended!
+            </div>
+        <?php endif ?>
+
         <?php if (isset($_GET['register'])): ?>
             <div class="alert alert-info">
                 Account created

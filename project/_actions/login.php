@@ -10,6 +10,10 @@ $table = new UsersTable(new MySQL);
 $user = $table->find($_POST['email'], $_POST['password']);
 
 if($user) {
+    if($user->suspended) {
+        HTTP::redirect("/index.php", "suspended=account");
+    }
+
     session_start();
     $_SESSION['user'] = $user;
     HTTP::redirect("/profile.php");
