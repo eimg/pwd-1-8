@@ -1,6 +1,14 @@
 @extends("layouts.app")
 @section("content")
     <div class="container" style="max-width: 800px">
+        {{ $articles->links() }}
+
+        @if(session("info"))
+            <div class="alert alert-info">
+                {{ session("info") }}
+            </div>
+        @endif
+
         @foreach ($articles as $article)
             <div class="card mb-2">
                 <div class="card-body">
