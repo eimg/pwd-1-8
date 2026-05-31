@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
+
+Route::post('/comments/create', [CommentController::class, 'create']);
+Route::get('/comments/delete/{id}', [CommentController::class, 'delete']);
 
 Route::get('/articles', [ArticleController::class, 'index']);
 Route::get('/articles/detail/{id}', [ArticleController::class, 'detail']);
