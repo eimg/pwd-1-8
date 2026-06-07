@@ -2,6 +2,13 @@
 
 @section("content")
     <div class="container" style="max-width: 800px">
+
+        @if(session("info"))
+            <div class="alert alert-info">
+                {{ session("info") }}
+            </div>
+        @endif
+
         <div class="card mb-2 border-primary">
             <div class="card-body">
                 <h3>{{ $article->title }}</h3>
@@ -16,8 +23,11 @@
                 <p>
                     {{ $article->body }}
                 </p>
-                <a href="{{ url("/articles/delete/$article->id") }}"
+
+                @can("delete-article", $article)
+                    <a href="{{ url("/articles/delete/$article->id") }}"
                     class="btn btn-sm btn-outline-danger">Delete</a>
+                @endcan
             </div>
         </div>
 
@@ -27,8 +37,10 @@
             </li>
             @foreach ($article->comments as $comment)
                 <li class="list-group-item">
-                    <a href="{{ url("/comments/delete/$comment->id") }}"
+                    @can("delete-comment", $comment)
+                        <a href="{{ url("/comments/delete/$comment->id") }}"
                         class="btn-close float-end"></a>
+                    @endcan
                     
                     <b class="text-success">
                         {{ $comment->user->name }}
@@ -37,11 +49,13 @@
                 </li>
             @endforeach
         </ul>
-        <form action="{{ url("/comments/create") }}" method="post" class="mt-2">
-            @csrf
-            <input type="hidden" name="article_id" value="{{ $article->id }}">
-            <textarea class="form-control mb-2" name="content"></textarea>
-            <button class="btn btn-secondary">Add Comment</button>
-        </form>
+        @auth
+            <form action="{{ url("/comments/create") }}" method="post" class="mt-2">
+                @csrf
+                <input type="hidden" name="article_id" value="{{ $article->id }}">
+                <textarea class="form-control mb-2" name="content"></textarea>
+                <button class="btn btn-secondary">Add Comment</button>
+            </form>
+        @endauth
     </div>
 @endsection
